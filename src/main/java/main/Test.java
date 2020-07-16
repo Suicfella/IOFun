@@ -10,9 +10,18 @@ public class Test {
         Path path = Paths.get("./testfile.dat");
         byte[] data = Files.readAllBytes(path);
         Buffer buffer = new Buffer(data);
-        for (int i = 0; i < 5; i++) {
-            System.out.println(buffer.readByte());
-        }
+        System.out.println(Long.MAX_VALUE / 2L);
+        System.out.println(buffer.readLong());
+        //buffer.writeLong(Long.MAX_VALUE / 2L);
+
+
+        // write(path, buffer.getPayload());
+
+    }
+
+
+    private static void write(Path path, byte[] data) throws IOException {
+        Files.write(path, data);
     }
 
 
