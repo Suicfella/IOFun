@@ -19,13 +19,8 @@ public class FileUtils {
      * @return the collected list unless it couldn't read the file or line in that case an empty list
      */
 
-    public static List<String> readFrom(Path path, long lineNumber) {
-        try (Stream<String> lines = Files.lines(path).skip(lineNumber)) {
-            return lines.collect(Collectors.toList());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return Collections.emptyList();
+    public static List<String> readFrom(Path path, long lineNumber, boolean inclusive) {
+        return getAsStringStream(path).skip(inclusive ? lineNumber - 1 : lineNumber).collect(Collectors.toList());
     }
 
     /**
@@ -35,14 +30,9 @@ public class FileUtils {
      */
 
     public static String peek(Path path, long lineNumber) {
-        try (Stream<String> lines = Files.lines(path)) {
-            Optional<String> str = lines.skip(lineNumber - 1).findFirst();
-            return str.orElse("");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return "";
+        Stream<String> lines = getAsStringStream(path);
+        Optional<String> str = lines.skip(lineNumber - 1).findFirst();
+        return str.orElse("");
     }
 
     /**
@@ -59,6 +49,20 @@ public class FileUtils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    /**
+     * @param path
+     * @return the lines from the file as a {@code Stream}
+     */
+
+    private static Stream<String> getAsStringStream(Path path) {
+        try {
+            return Files.lines(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Stream.empty();
     }
 
 }

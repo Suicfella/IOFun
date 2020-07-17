@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.stream.Stream;
@@ -15,8 +16,8 @@ public class Test {
         byte[] data = Files.readAllBytes(path);
         Buffer buffer = new Buffer(data);
 
-        String str = FileUtils.readRandomLine(Paths.get("./sometext.txt"));
-        System.out.println(str);
+        List<String> list = FileUtils.readFrom(Paths.get("./sometext.txt"), 3, true);
+        System.out.println(list);
         //   write(path, buffer.getPayload());
 
 
