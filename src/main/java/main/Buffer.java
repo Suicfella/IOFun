@@ -45,7 +45,7 @@ public class Buffer {
 
     }
 
-    public int readSignedShort() {
+    public int readShort() {
         position += 2;
         return ((this.payload[position - 2] & 0xFF) << 8) + (this.payload[position - 1] & 0xFF);
     }
