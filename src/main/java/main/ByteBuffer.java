@@ -1,16 +1,16 @@
 package main;
 
-public class Buffer {
+public class ByteBuffer {
 
     private byte[] payload;
     private int position;
 
-    public Buffer(int capacity) {
+    public ByteBuffer(int capacity) {
         this.payload = new byte[capacity];
         position = 0;
     }
 
-    public Buffer(byte[] payload) {
+    public ByteBuffer(byte[] payload) {
         this.payload = payload;
         position = 0;
     }
